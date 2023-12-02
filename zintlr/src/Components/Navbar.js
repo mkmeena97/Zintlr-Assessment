@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 export default function Navbar(){
   const [selectedCountry, setSelectedCountry] = useState('USD'); // Set a default country code
   const countryCodes = ['USD', 'EUR', 'GBP']; // Add more country codes as needed
