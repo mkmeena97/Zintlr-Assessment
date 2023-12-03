@@ -1,80 +1,90 @@
-import { useState } from "react";
-// import { useEffect } from "react";
-// import { Line, chartRef, Chart, chartConfig } from 'react-chartjs-2';
+import React, { useState, useEffect } from 'react';
+import Chart from 'chart.js/auto';
 
-export default function Home(){
-    // const [data, setData] = useState();
-    // useEffect(() => {
-    //     if (chartRef.current) {
-    //       chartRef.current.destroy();
-    //     }
-    //     const newChart = new Chart(chartRef.current, chartConfig);
-    //     chartRef.current = newChart;
-    //   }, [data]);
+export default function Home() {
+  const [selectedTime, setSelectedTime] = useState('Total');
+  const [selectedOption, setSelectedOption] = useState();
+  const timeOptions = ['Total','Lastweek', 'Lastmonth'];
+  const lastWeekEarning = 598760.80;
+  const lastMonthEarning = 854975.25;
+  const totalEarning = lastWeekEarning + lastMonthEarning;
+  const times = {
+    Lastweek: lastWeekEarning,
+    Lastmonth: lastMonthEarning,
+    Total: totalEarning,
+  };
 
+  let floatWallet = 1453736.05;
+  let cashWallet = 1453736.05;
+  let bullionWalletGold = 9242.5;
+  let bullionWalletSilver = 922.5;
 
+  let directConsumers = 342;
+  let throughAssociates = 300;
+  let throughFieldExecutives = 400;
+  let throughSalesExecutives = 300;
+  var totalConsumers = directConsumers + throughAssociates + throughFieldExecutives + throughSalesExecutives;
 
-    const [selectedTime, setSelectedTime] = useState('Total');
-    const timeOptions = ['lastweek', 'lastmonth', 'total'];
-    const lastWeekEarning = 598760.80;
-    const lastMonthEarning = 854975.25;
-    const totalEarning = lastWeekEarning + lastMonthEarning;
-    const times = {
-      lastweek: lastWeekEarning,
-      lastmonth: lastMonthEarning,
-      total: totalEarning,
+  const handleTimeChange = (e) => {
+    setSelectedTime(e.target.value);
+  };
+
+  const [chartData, setChartData] = useState([65, 59, 80, 81, 56, 55, 40]);
+
+  useEffect(() => {
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    let myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['1', '2', '3', '4', '5', '6', '7'],
+        datasets: [
+          {
+            label: 'Revenue',
+            data: chartData,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+
+    // Destroy the existing Chart instance before creating a new one
+    return () => {
+      myChart.destroy();
     };
+  }, [chartData]);
 
-    let floatWallet = 1453736.05;
-    let cashWallet = 1453736.05;
-    let bullionWalletGold = 9242.5;
-    let bullionWalletSilver = 922.5; 
+  const handleChartDataChange = (e) => {
+    const selectedOption = e.target.value;
+    let newData = [];
+    switch (selectedOption) {
+      case 'Top 5':
+        newData = [65, 59, 80, 81, 56];
+        break;
+      case 'Top 10':
+        newData = [65, 59, 80, 81, 56, 55, 40, 35, 70, 90];
+        break;
+      case 'Top 50':
+        newData = [65, 59, 80, 81, 56, 55, 40, 35, 70, 90, 75, 65, 50, 45, 80, 75, 60, 55, 70, 95, 85, 70, 65, 80, 75, 60, 55, 70, 95, 85, 70, 65, 80, 75, 60, 55, 70, 95, 85, 70, 65, 80, 75, 60, 55, 70];
+        break;  
+      case 'Top 100':
+        newData = [65, 59, 80, 81, 56, 55, 40, 35, 70, 90, 75, 65, 50, 45, 80, 75, 60, 55, 70, 95, 85, 70, 65, 80, 75, 60, 55, 70, 95, 85, 70, 65, 80, 75, 60, 55, 70, 95, 85, 70, 65, 80, 75, 60, 55, 70, 95, 85, 70];
+        break;
 
+      default:
+        break;
+    }
+    setChartData(newData);
+  };
 
-    let directConsumers = 342;
-    let throughAssociates = 300;
-    let throughFieldExecutives = 400;
-    let throughSalesExecutives = 300;
-    var totalConsumers = directConsumers + throughAssociates + throughFieldExecutives + throughSalesExecutives;
-
-    const handleTimeChange = (e) => {
-        setSelectedTime(e.target.value);
-      };
-
-    //   const chartData = {
-    //     labels: timeOptions,
-    //     datasets: [
-    //       {
-    //         label: 'Earnings',
-    //         fill: false,
-    //         lineTension: 0.1,
-    //         backgroundColor: 'rgba(75,192,192,0.4)',
-    //         borderColor: 'rgba(75,192,192,1)',
-    //         borderCapStyle: 'butt',
-    //         borderDash: [],
-    //         borderDashOffset: 0.0,
-    //         borderJoinStyle: 'miter',
-    //         pointBorderColor: 'rgba(75,192,192,1)',
-    //         pointBackgroundColor: '#fff',
-    //         pointBorderWidth: 1,
-    //         pointHoverRadius: 5,
-    //         pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-    //         pointHoverBorderColor: 'rgba(220,220,220,1)',
-    //         pointHoverBorderWidth: 2,
-    //         pointRadius: 1,
-    //         pointHitRadius: 10,
-    //         data: timeOptions.map((time) => times[time]),
-    //       },
-    //     ],
-    //   };
-
-    //   const chartOptions = {
-    //     scales: {
-    //       y: {
-    //         beginAtZero: true,
-    //       },
-    //     },
-    //   };
 
     return(
     <div class="flex">   
@@ -111,7 +121,7 @@ export default function Home(){
                 <div class="grid grid-cols-2 gap-2  ">
                     <div class="h-auto rounded bg-white-50 dark:bg-white-800 p-4">
                         <section>
-                            <p>Total Earnings</p>
+                            <p class="font-bold">Total Earnings</p>
                             <p>Rs {times[selectedTime]}</p>
                             <select id="countrySelect" onChange={handleTimeChange} value={selectedTime}>
                                 {timeOptions.map((time) => (
@@ -158,15 +168,22 @@ export default function Home(){
                 </div>
             </section>
         </div>
-        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 w-1/3 h-1/2">
+        <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 w-1/3">
             <div class="flex">
               <h1 class="font-bold">Highest Revenue Earned </h1>
-              <select class="rounded ml-12 bg-zinc-300">
+              <select
+                className="rounded ml-12 bg-zinc-300"
+                onChange={handleChartDataChange}
+                value={selectedOption}
+                >
                 <option>Top 5</option>
                 <option>Top 10</option>
                 <option>Top 50</option>
                 <option>Top 100</option>
               </select>
+            </div>
+            <div className="p-4  rounded-lg dark:border-gray-700 mt-2 ">
+                <canvas id="revenueChart" width="400" height="300" class="mt-5 bg-white dark:bg-gray-800 rounded-lg shadow-md"></canvas>
             </div>
         </div>
     </div>     

@@ -1,4 +1,4 @@
-export default function Sections()
+export default function Sections({onManageConsumerClick})
 {
     return(
 <div>        
@@ -10,7 +10,7 @@ export default function Sections()
             <p class="text-gray-600 dark:text-gray-400 mb-4 text-xs">You have 134 consumers this week.</p>
             <div class="flex space-x-2">
                 <button class="bg-blue-500 text-white px-4 py-2 flex-grow text-xs">Add consumers</button>
-                <button class="bg-green-500 text-white px-4 py-2 flex-grow text-xs">Manage consumers</button>
+                <button class="bg-green-500 text-white px-4 py-2 flex-grow text-xs" onClick={onManageConsumerClick}>Manage consumers</button>
         </div>
         </div>
         <div class="flex md-2 flex-col h-auto rounded bg-yellow-50 dark:bg-yellow-800 p-4">

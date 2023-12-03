@@ -1,39 +1,42 @@
-import {Routes, Route} from "react-router-dom";
+
 import './App.css';
 import Sections from "./Components/Saction";
 import Sidebar from "./Components/Sidebar";
 import Navbar from "./Components/Navbar";
 import Home from "./Components/Home";
+import TableComponent from "./Components/TableComponent";
+import React, { useState } from 'react';
+
 
 function App() {
+  const [showTable, setShowTable] = useState(false);
+
+  const handleManageConsumerClick = () => {
+    setShowTable(true);
+  };
+
   return (
-  //  <div style={{ display: 'flex', flexDirection: 'column' }}>
-  //     <Navbar style={{paddingLeft:'20%'}}></Navbar>
-  //     <Sidebar ></Sidebar>
-  //     <Sections ></Sections>
-  //     <h1 style={{paddingLeft:'20%'}}>Consumers Overviews</h1>
-  //     <Home></Home>
-  //  </div>
-  <div>
-    <div class="flex">
-        <aside class="w-1/5 bg-silver-200 p-4">
-            <Sidebar></Sidebar>
+    <div>
+      <div className="flex">
+        <aside className="w-1/6 bg-silver-200 p-4">
+          <Sidebar onManageConsumerClick={handleManageConsumerClick}></Sidebar>
         </aside>
-        <section class="w-4/5">
-        <nav class="bg-blue-100 text-white p-4 ">
+        <section className="w-5/6">
+          <nav className="bg-blue-100 text-white p-4">
             <Navbar></Navbar>
-        </nav>
-        <section>
-            <Sections></Sections>
+          </nav>
+          <section>
+            <Sections onManageConsumerClick={handleManageConsumerClick}></Sections>
+          </section>
+          <h1>Consumers Overviews</h1>
+          <section>
+            {showTable ? <TableComponent></TableComponent> : <Home></Home>}
+          </section>
         </section>
-        <h1>Consumers Overviews</h1>
-        <section>
-            <Home></Home>
-        </section>
-        </section>
+      </div>
     </div>
-  </div>
   );
 }
 
 export default App;
+
