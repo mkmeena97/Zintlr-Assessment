@@ -34,6 +34,7 @@ This project implements a dynamic web application with the following key feature
 ## Usage
 
 To use this application, follow these steps:
+project Link : https://zintlr-assessment.vercel.app/
 
 1. Clone the repository:
 
