@@ -38,7 +38,8 @@ To use this application, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-repo.git
+   https://github.com/mkmeena97/Zintlr-Assessment.git
+  
    
 ## Dependencies
 -React
